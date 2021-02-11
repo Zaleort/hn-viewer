@@ -1,0 +1,24 @@
+@import 'variables';
+@import 'normalize';
+@import 'utility';
+@import 'animations';
+@import 'scrollbar';
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    font-family: 'Rubik', sans-serif;
+    color: $text-color;
+    -webkit-font-smoothing: antialiased;
+    background-color: $background-color;
+}
+
+p {
+    margin: 12px 0;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
