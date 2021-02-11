@@ -1,24 +1,3 @@
 # hn-viewer
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Rediseño de la interfaz de Hackers News para facilitar la lectura de los posts y comentarios
+usando la API de Ycombinator.
