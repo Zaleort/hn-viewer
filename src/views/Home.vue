@@ -1,33 +1,38 @@
 <template>
-  <main class="hn-section">
+  <transition-group tag="div" name="hn-story">
     <story
       v-for="(story, index) of stories"
       :key="story.id"
       v-bind="story"
       :index="index"
     />
-  </main>
+  </transition-group>
+  <loading :loading="loading" />
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import Item from '@/interfaces/Item';
 import Story from '@/components/Story.vue';
+import Loading from '@/components/Loading.vue';
+import Item from '@/interfaces/Item';
 import api from '@/lib/ApiStories';
 
 export default defineComponent({
   name: 'Home',
   components: {
     Story,
+    Loading,
   },
 
   setup: () => {
     const stories = ref<Item[]>([]);
     const storiesIds = ref<number[]>([]);
     const count = ref(0);
+    const loading = ref(false);
 
     const getStories = async () => {
       if (!storiesIds.value || storiesIds.value.length === 0) return;
+      loading.value = true;
 
       const promises = [];
 
@@ -42,6 +47,8 @@ export default defineComponent({
         const index = storiesIds.value.indexOf(story.id);
         stories.value[index] = story;
       });
+
+      loading.value = false;
     };
 
     const getIds = async () => {
@@ -58,6 +65,7 @@ export default defineComponent({
       count,
       getIds,
       getStories,
+      loading,
     };
   },
 });
