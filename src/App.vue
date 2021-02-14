@@ -33,7 +33,7 @@
       </menu-item>
     </Menu>
 
-    <main class="hn-main">
+    <main id="main" class="hn-main">
       <router-view />
     </main>
   </div>
