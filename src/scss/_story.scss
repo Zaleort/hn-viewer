@@ -45,3 +45,17 @@
     margin-top: 7px;
   }
 }
+
+.hn-story-enter-active {
+  transition: all 250ms ease-out;
+}
+
+.hn-story-enter-active {
+  transition: all 250ms ease-in;
+}
+
+.hn-story-enter-from,
+.hn-story-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
