@@ -1,11 +1,65 @@
 <template>
-  <div id="nav">
-    <router-link to="/">
-      Home
-    </router-link> |
-    <router-link to="/about">
-      About
-    </router-link>
+  <topbar>
+    <icon
+      class="clickable"
+      icon="hamburger"
+      color="white"
+      @click="menuVisible = !menuVisible"
+    />
+  </topbar>
+  <div class="hn-container">
+    <Menu
+      v-model:visible="menuVisible"
+      v-model:collapsed="menuCollapsed"
+      hamburger
+    >
+      <menu-item icon="close" :to="{ name: 'Home' }">
+        Top
+      </menu-item>
+      <menu-item icon="close" :to="{ name: 'Best' }">
+        Best
+      </menu-item>
+      <menu-item icon="error" :to="{ name: 'New' }">
+        New
+      </menu-item>
+      <menu-item icon="error" :to="{ name: 'Ask' }">
+        Ask
+      </menu-item>
+      <menu-item icon="error" :to="{ name: 'Show' }">
+        Show
+      </menu-item>
+      <menu-item icon="error" :to="{ name: 'Jobs' }">
+        Jobs
+      </menu-item>
+    </Menu>
+
+    <main class="hn-main">
+      <router-view />
+    </main>
   </div>
-  <router-view />
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import Menu from '@/components/Menu.vue';
+import MenuItem from '@/components/MenuItem.vue';
+import Topbar from '@/components/Topbar.vue';
+import Icon from '@/components/Icon.vue';
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    Menu,
+    MenuItem,
+    Topbar,
+    Icon,
+  },
+
+  data() {
+    return {
+      menuVisible: false,
+      menuCollapsed: false,
+    };
+  },
+});
+</script>

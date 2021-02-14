@@ -1,0 +1,140 @@
+@include block(menu) {
+  display: flex;
+  background-color: $white;
+  
+  @include modifier(vertical) {
+    flex-direction: column;
+    padding: 16px 0;
+    height: 100%;
+    overflow: auto;
+    border-right: 1px solid $border-color;
+    box-shadow: $low-shadow;
+
+    & .hn-menu-item {
+      border-bottom: 1px solid $grey200;
+    }
+
+    & .hn-menu-item:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @include modifier(horizontal) {
+    flex-direction: row;
+
+    & .hn-menu-item {
+      border-right: 1px solid $grey200;
+    }
+
+    & .hn-menu-item:last-child {
+      border-right: none;
+    }
+  }
+
+  @include when(hamburger) {
+    position: relative;
+    transition: all 250ms ease-in-out;
+    width: $menu-hamburger-width;
+    transform: translateX(-100%);
+
+    @if ($topbar-height) {
+      padding-top: $topbar-height + 16px;
+
+      @include desktop {
+        padding-top: 16px;
+      }
+    }
+
+    @include when(visible) {
+      transform: translateX(0);
+    }
+
+    @include when(collapsed) {
+      width: $menu-hamburger-collapsed;
+
+      & .hn-menu-item__span {
+        transition-timing-function: ease-in;
+        opacity: 0;
+      }
+    }
+  }
+
+  @include element(mask) {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 250ms ease, visibility 250ms ease, width 250ms ease-in-out;
+
+    @include desktop {
+      position: static;
+      opacity: 1;
+      width: 0;
+      visibility: visible;
+      max-width: 300px;
+    }
+
+    @include when(visible) {
+      opacity: 1;
+      width: 100%;
+      visibility: visible;
+
+      @include desktop {
+        width: $menu-hamburger-width;
+      }
+
+      @include when(collapsed) {
+        @include desktop {
+          width: $menu-hamburger-collapsed;
+        }
+      }
+    }
+  }
+}
+
+@include block(menu-item) {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 12px;
+  height: 48px;
+  transition: all 120ms ease;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  color: $text-color;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    background: $primary;
+    color: $white;
+  }
+
+  @include when(disabled) {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+
+  @include modifier(collapse) {
+    margin-top: auto;
+  }
+
+  @include element(span) {
+    transition: opacity 220ms ease-out;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .hn-icon {
+    transition: transform 220ms ease-out;
+    flex-shrink: 0;
+  }
+}
