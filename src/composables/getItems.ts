@@ -19,6 +19,7 @@ export default () => {
         story => {
           const index = storiesIds.value.indexOf(story.id);
           stories.value[index] = story;
+          loading.value = false;
         },
 
         error => console.error(error),
@@ -26,7 +27,6 @@ export default () => {
     }
 
     count.value += 20;
-    loading.value = false;
   };
 
   const getTopIds = async () => {
@@ -64,7 +64,7 @@ export default () => {
     if (!main) return;
 
     const espacioVisto = main.scrollTop + window.innerHeight;
-    if (espacioVisto > main.scrollHeight - 100 && !loading.value) {
+    if (espacioVisto >= main.scrollHeight && !loading.value && count.value < storiesIds.value.length) {
       getStories();
     }
   };
