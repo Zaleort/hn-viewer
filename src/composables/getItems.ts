@@ -13,13 +13,19 @@ export default () => {
     loading.value = true;
 
     for (let i = count.value; i < count.value + 20; i++) {
+      const actualCount = count.value + 20;
       if (count.value >= storiesIds.value.length) break;
 
       api.getOne(storiesIds.value[i]).then(
         story => {
           const index = storiesIds.value.indexOf(story.id);
           stories.value[index] = story;
-          loading.value = false;
+
+          // Evita llamadas infinitas en caso de que el usuario intente mantener
+          // el scroll siempre al final de la página
+          if (actualCount === count.value) {
+            loading.value = false;
+          }
         },
 
         error => console.error(error),
