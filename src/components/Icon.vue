@@ -6,7 +6,7 @@
       [`hn-icon--${color}`]: color !== null,
     }"
     xmlns="http://www.w3.org/2000/svg"
-    :viewBox="viewBox"
+    :viewBox="viewBox || iconComponent.viewBox"
     :aria-labelledby="icon"
     role="presentation"
   >
@@ -17,7 +17,7 @@
       {{ description }}
     </title>
     <g :fill="fill">
-      <component :is="iconComponent" />
+      <component :is="iconComponent.node" />
     </g>
   </svg>
 </template>
@@ -32,7 +32,7 @@ export default defineComponent({
   props: {
     viewBox: {
       type: String,
-      default: '0 0 512 512',
+      default: null,
     },
 
     icon: {
