@@ -13,22 +13,22 @@
       v-model:collapsed="menuCollapsed"
       hamburger
     >
-      <menu-item icon="close" :to="{ name: 'Home' }">
+      <menu-item icon="hot" :to="{ name: 'Home' }">
         Top
       </menu-item>
-      <menu-item icon="close" :to="{ name: 'Best' }">
+      <menu-item icon="crown" :to="{ name: 'Best' }">
         Best
       </menu-item>
-      <menu-item icon="error" :to="{ name: 'New' }">
+      <menu-item icon="exclamation" :to="{ name: 'New' }">
         New
       </menu-item>
-      <menu-item icon="error" :to="{ name: 'Ask' }">
+      <menu-item icon="question" :to="{ name: 'Ask' }">
         Ask
       </menu-item>
-      <menu-item icon="error" :to="{ name: 'Show' }">
+      <menu-item icon="eye" :to="{ name: 'Show' }">
         Show
       </menu-item>
-      <menu-item icon="error" :to="{ name: 'Jobs' }">
+      <menu-item icon="briefcase" :to="{ name: 'Jobs' }">
         Jobs
       </menu-item>
     </Menu>

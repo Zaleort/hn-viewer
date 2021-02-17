@@ -9,6 +9,7 @@ export default defineComponent({
   components: {
     Icon,
   },
+
   props: {
     visible: {
       type: Boolean,

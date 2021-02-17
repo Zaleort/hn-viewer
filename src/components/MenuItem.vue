@@ -7,7 +7,7 @@
     <icon
       v-if="icon"
       :icon="icon"
-      class="mr-2"
+      class="mr-3"
     />
     <span class="hn-menu-item__span">
       <slot />
@@ -23,7 +23,7 @@
     <icon
       v-if="icon"
       :icon="icon"
-      class="mr-2"
+      class="mr-3"
     />
     <span class="hn-menu-item__span">
       <slot />
@@ -39,7 +39,7 @@
     <icon
       v-if="icon"
       :icon="icon"
-      class="mr-2"
+      class="mr-3"
     />
     <span class="hn-menu-item__span">
       <slot />
