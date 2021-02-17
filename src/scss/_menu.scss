@@ -4,7 +4,7 @@
   
   @include modifier(vertical) {
     flex-direction: column;
-    padding: 16px 0;
+    padding-bottom: 16px;
     height: 100%;
     overflow: auto;
     border-right: 1px solid $border-color;
@@ -38,10 +38,10 @@
     transform: translateX(-100%);
 
     @if ($topbar-height) {
-      padding-top: $topbar-height + 16px;
+      padding-top: $topbar-height;
 
       @include desktop {
-        padding-top: 16px;
+        padding-top: 0;
       }
     }
 
@@ -113,8 +113,8 @@
   &:hover,
   &:focus {
     outline: none;
-    background: $primary;
-    color: $white;
+    background: $primary50;
+    color: $primary;
   }
 
   @include when(disabled) {
@@ -137,4 +137,10 @@
     transition: transform 220ms ease-out;
     flex-shrink: 0;
   }
+}
+
+.router-link-active {
+  outline: none;
+  background: $primary50;
+  color: $primary;
 }
