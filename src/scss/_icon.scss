@@ -4,22 +4,27 @@
 
   @include modifier(mini) {
     width: 0.7em;
+    height: 0.7em;
   }
 
   @include modifier(small) {
     width: 0.9em;
+    height: 0.9em;
   }
 
   @include modifier(normal) {
     width: 1em;
+    height: 1em;
   }
 
   @include modifier(large) {
     width: 1.2em;
+    height: 1.2em;
   }
 
   @include modifier(xlarge) {
     width: 1.5em;
+    height: 1.5em;
   }
 
   @include modifier(black) {
@@ -46,6 +51,7 @@
   @for $i from 2 through 5 {
     @include modifier('x' + $i) {
       width: $i * 1em;
+      height: $i * 1em;
     }
   }
 }
