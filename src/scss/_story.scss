@@ -1,10 +1,20 @@
 @include block(story) {
+  width: $desktop-l;
+  margin: 0 auto 5px auto;
   display: flex;
-  margin: 5px 0;
   background-color: $grey50;
   box-shadow: $low-shadow;
   border-radius: $border-radius;
   overflow: hidden;
+
+  @include modifier(ask) {
+    width: $desktop-l;
+    margin: 0 auto;
+    background-color: white;
+    padding: 16px;
+    border-radius: $border-radius;
+    box-shadow: $low-shadow;
+  }
 
   @include element(ribbon) {
     min-width: 65px;
@@ -15,21 +25,31 @@
     padding: 12px;
     color: $grey50;
     background-color: $primary;
-    margin-right: 16px;
+    margin-right: 9px;
   }
 
   @include element(score) {
     margin-top: 5px;
     font-size: 0.9em;
   }
-
+ 
   @include element(heading) {
     display: block;
     margin: 0;
-    font-size: 1.3em;
+    font-size: 1.2em;
     text-decoration: none;
     color: $text-color;
     font-weight: 500;
+    transition: 50ms ease;
+
+    &:hover {
+      color: $primary;
+      background-color: $primary50;
+    }
+
+    @include tablet {
+      font-size: 1.3em;
+    }
   }
 
   @include element(url) {
@@ -38,6 +58,7 @@
   }
 
   @include element(content) {
+    flex-grow: 1;
     padding: 9px;
   }
 

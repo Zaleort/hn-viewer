@@ -8,6 +8,7 @@
     <div class="hn-story__content">
       <div class="hn-story__header">
         <a
+          v-if="url"
           :href="url"
           target="_blank"
           rel="no-opener"
@@ -15,6 +16,13 @@
         >
           {{ title }}
         </a>
+        <router-link
+          v-if="!url && text"
+          :to="{ name: 'Story', params: { id: id } }"
+          class="hn-story__heading"
+        >
+          {{ title }}
+        </router-link>
         <span class="hn-story__url">{{ domain }}</span>
       </div>
 
