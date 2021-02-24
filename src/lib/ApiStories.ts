@@ -10,4 +10,5 @@ export default {
   getShow: () => api.get(`${url}showstories.json`),
   getJob: () => api.get(`${url}jobstories.json`),
   getOne: (id: number) => api.get(`${url}item/${id}.json`),
+  getUser: (id: number) => api.get(`${url}user/${id}.json`),
 };
