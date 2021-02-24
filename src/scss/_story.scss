@@ -1,5 +1,5 @@
 @include block(story) {
-  width: $desktop-l;
+  max-width: $desktop-l;
   margin: 0 auto 5px auto;
   display: flex;
   background-color: $grey50;
@@ -8,12 +8,14 @@
   overflow: hidden;
 
   @include modifier(ask) {
-    width: $desktop-l;
+    max-width: $desktop-l;
     margin: 0 auto;
     background-color: white;
     padding: 16px;
     border-radius: $border-radius;
     box-shadow: $low-shadow;
+    font-size: 18px;
+    line-height: 1.5;
   }
 
   @include element(ribbon) {
@@ -36,7 +38,7 @@
   @include element(heading) {
     display: block;
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1.15em;
     text-decoration: none;
     color: $text-color;
     font-weight: 500;
@@ -63,7 +65,28 @@
   }
 
   @include element(footer) {
-    margin-top: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  @include element(by) {
+    margin-right: 12px;
+  }
+
+  @include element(comments) {
+    display: flex;
+    align-items: center;
+    transition: all 50ms ease;
+    color: $text-color;
+    text-decoration: none;
+
+    @include when(commented) {
+      cursor: pointer;
+      &:hover {
+        color: $primary;
+      }
+    }
   }
 }
 

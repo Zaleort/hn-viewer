@@ -17,7 +17,7 @@
           {{ title }}
         </a>
         <router-link
-          v-if="!url && text"
+          v-else
           :to="{ name: 'Story', params: { id: id } }"
           class="hn-story__heading"
         >
@@ -27,17 +27,40 @@
       </div>
 
       <footer class="hn-story__footer">
-        {{ by }}
+        <span class="hn-story__by">By {{ by }} {{ timeString }} ago</span>
+        <router-link
+          v-if="hasDescendants"
+          :to="{ name: 'Story', params: { id: id }}"
+          :class="{
+            'hn-story__comments': true,
+            'is-commented': hasDescendants,
+          }"
+        >
+          <icon
+            icon="comment"
+            color="primary"
+            class="mr-1"
+          />
+          {{ descendants }}
+        </router-link>
       </footer>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import {
+  computed, defineComponent, watchEffect,
+} from 'vue';
+import Icon from '@/components/Icon.vue';
+import TimeString from '@/composables/timeString';
 
 export default defineComponent({
   name: 'Story',
+  components: {
+    Icon,
+  },
+
   props: {
     index: {
       type: Number,
@@ -46,7 +69,7 @@ export default defineComponent({
 
     by: {
       type: String,
-      default: null,
+      default: '...',
     },
 
     id: {
@@ -76,12 +99,12 @@ export default defineComponent({
 
     score: {
       type: Number,
-      default: null,
+      default: 0,
     },
 
     title: {
       type: String,
-      default: null,
+      default: '...',
     },
 
     kids: {
@@ -101,6 +124,7 @@ export default defineComponent({
   },
 
   setup(props) {
+    const { timeString, setTimeString } = TimeString();
     const domain = computed(() => {
       if (!props.url) return 'news.ycombinator.com';
 
@@ -108,8 +132,17 @@ export default defineComponent({
       return url.hostname;
     });
 
+    const hasDescendants = computed(() => props.descendants > 0);
+
+    watchEffect(() => {
+      setTimeString(props.time);
+    });
+
     return {
+      hasDescendants,
       domain,
+      timeString,
+      setTimeString,
     };
   },
 });
