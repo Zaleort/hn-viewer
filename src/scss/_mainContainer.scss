@@ -2,10 +2,10 @@
   position: relative;
   display: block;
   flex: 1;
-  padding: 7px;
+  padding: 21px 7px;
   overflow: auto;
 
   @include tablet {
-    padding: 12px;
+    padding: 24px 12px;
   }
 }
