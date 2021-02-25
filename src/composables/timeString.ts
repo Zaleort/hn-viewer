@@ -12,18 +12,18 @@ export default () => {
 
     if (days > 1) {
       rounded = Math.floor(days);
-      timeString.value = rounded === 1 ? `${rounded} day` : `${rounded} days`;
+      timeString.value = `${rounded}d`;
       return timeString.value;
     }
 
     if (hours > 1) {
       rounded = Math.floor(hours);
-      timeString.value = rounded === 1 ? `${rounded} hour` : `${rounded} hours`;
+      timeString.value = `${rounded}h`;
       return timeString.value;
     }
 
     rounded = Math.floor(minutes);
-    timeString.value = rounded === 1 ? `${rounded} minute` : `${rounded} minutes`;
+    timeString.value = `${rounded}min`;
     return timeString.value;
   };
 
