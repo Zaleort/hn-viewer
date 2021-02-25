@@ -1,22 +1,71 @@
 @include block(story) {
   max-width: $desktop-l;
+  margin: 0 auto;
+  background-color: white;
+  padding: 16px;
+  border-radius: $border-radius;
+  box-shadow: $low-shadow;
+  font-size: 18px;
+  line-height: 1.5;
+
+  @include element(heading) {
+    display: block;
+    margin: 0;
+    font-size: 1.15em;
+    text-decoration: none;
+    color: $text-color;
+    font-weight: 500;
+    transition: 50ms ease;
+
+    @include tablet {
+      font-size: 1.3em;
+    }
+
+    @include when(clickable) {
+      &:hover {
+        color: $primary;
+        background-color: $primary50;
+      }
+    }
+  }
+
+  @include element(subheading) {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    color: $text-secondary-color;
+  }
+
+  @include element(user) {
+    color: $primary300;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary;
+    }
+  }
+
+  @include element(comment) {
+
+  }
+
+  @include element(comments-heading) {
+    margin: 0;
+    font-size: 1.15em;
+    text-decoration: none;
+    color: $text-color;
+    font-weight: 500;
+  }
+}
+
+@include block(story-card) {
+  max-width: $desktop-l;
   margin: 0 auto 5px auto;
   display: flex;
   background-color: $grey50;
   box-shadow: $low-shadow;
   border-radius: $border-radius;
   overflow: hidden;
-
-  @include modifier(ask) {
-    max-width: $desktop-l;
-    margin: 0 auto;
-    background-color: white;
-    padding: 16px;
-    border-radius: $border-radius;
-    box-shadow: $low-shadow;
-    font-size: 18px;
-    line-height: 1.5;
-  }
 
   @include element(ribbon) {
     min-width: 65px;
@@ -52,6 +101,10 @@
     @include tablet {
       font-size: 1.3em;
     }
+
+    @include when(clickable) {
+
+    }
   }
 
   @include element(url) {
@@ -68,6 +121,7 @@
     display: flex;
     flex-wrap: wrap;
     margin-top: 12px;
+    color: $grey700;
   }
 
   @include element(by) {
@@ -78,7 +132,7 @@
     display: flex;
     align-items: center;
     transition: all 50ms ease;
-    color: $text-color;
+    color: $grey800;
     text-decoration: none;
 
     @include when(commented) {

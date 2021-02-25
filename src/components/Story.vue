@@ -1,38 +1,45 @@
 <template>
-  <div class="hn-story">
-    <div class="hn-story__ribbon">
+  <div class="hn-story-card">
+    <div class="hn-story-card__ribbon">
       <span>{{ index + 1 }}</span>
-      <span class="hn-story__score">{{ score }}p</span>
+      <span class="hn-story-card__score">{{ score }}p</span>
     </div>
 
-    <div class="hn-story__content">
-      <div class="hn-story__header">
+    <div class="hn-story-card__content">
+      <div class="hn-story-card__header">
         <a
           v-if="url"
           :href="url"
           target="_blank"
           rel="no-opener"
-          class="hn-story__heading"
+          class="hn-story-card__heading"
         >
           {{ title }}
         </a>
         <router-link
           v-else
           :to="{ name: 'Story', params: { id: id } }"
-          class="hn-story__heading"
+          class="hn-story-card__heading"
         >
           {{ title }}
         </router-link>
-        <span class="hn-story__url">{{ domain }}</span>
+        <span class="hn-story-card__url">{{ domain }}</span>
       </div>
 
-      <footer class="hn-story__footer">
-        <span class="hn-story__by">By {{ by }} {{ timeString }} ago</span>
+      <footer class="hn-story-card__footer">
+        <span class="mr-4">
+          <icon icon="user" size="small" />
+          {{ by }}
+        </span>
+        <span class="mr-4">
+          <icon icon="clock" size="small" />
+          {{ timeString }}
+        </span>
         <router-link
           v-if="hasDescendants"
           :to="{ name: 'Story', params: { id: id }}"
           :class="{
-            'hn-story__comments': true,
+            'hn-story-card__comments': true,
             'is-commented': hasDescendants,
           }"
         >
