@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!deleted"
     :class="{
       'hn-comment': true,
       'is-level-1': level === 1,
@@ -77,6 +78,16 @@ export default defineComponent({
     type: {
       type: String,
       default: 'comment',
+    },
+
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
+
+    dead: {
+      type: Boolean,
+      default: false,
     },
   },
 
