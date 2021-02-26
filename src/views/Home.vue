@@ -14,8 +14,8 @@
 import { defineComponent, onMounted } from 'vue';
 import Story from '@/components/Story.vue';
 import Loading from '@/components/Loading.vue';
-import getItems from '@/composables/getItems';
-import onScroll from '@/composables/onScroll';
+import Stories from '@/composables/Stories';
+import OnScroll from '@/composables/OnScroll';
 
 export default defineComponent({
   name: 'Home',
@@ -27,9 +27,9 @@ export default defineComponent({
   setup: () => {
     const {
       stories, storiesIds, count, loading, getStories, getTopIds, infiniteScroll,
-    } = getItems();
+    } = Stories();
 
-    onScroll(infiniteScroll);
+    OnScroll(infiniteScroll);
 
     onMounted(() => {
       getTopIds();

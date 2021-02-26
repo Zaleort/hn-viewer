@@ -18,8 +18,7 @@ export default () => {
 
       api.getOne(storiesIds.value[i]).then(
         story => {
-          const index = storiesIds.value.indexOf(story.id);
-          stories.value[index] = story;
+          stories.value[i] = story;
 
           // Evita llamadas infinitas en caso de que el usuario intente mantener
           // el scroll siempre al final de la página

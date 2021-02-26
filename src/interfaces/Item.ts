@@ -9,6 +9,7 @@ export default interface Item {
   parent: number;
   poll: object;
   kids: number[];
+  resolvedKids?: Item[],
   url: string;
   score: string;
   title: string;

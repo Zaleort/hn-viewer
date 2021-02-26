@@ -23,7 +23,7 @@ export default () => {
     }
 
     rounded = Math.floor(minutes);
-    timeString.value = `${rounded}min`;
+    timeString.value = `${rounded}m`;
     return timeString.value;
   };
 

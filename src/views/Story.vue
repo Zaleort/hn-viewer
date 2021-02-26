@@ -46,7 +46,6 @@
         v-for="(comment, index) of comments"
         :key="index"
         v-bind="comment"
-        :index="index"
       />
     </transition-group>
   </div>
@@ -59,11 +58,12 @@ import {
 } from 'vue';
 import Icon from '@/components/Icon.vue';
 import Loading from '@/components/Loading.vue';
-import getComments from '@/composables/getComments';
-import onScroll from '@/composables/onScroll';
+import OnScroll from '@/composables/OnScroll';
 import Comment from '@/components/Comment.vue';
-import TimeString from '@/composables/timeString';
+import TimeString from '@/composables/TimeString';
 import { useRoute } from 'vue-router';
+import Item from '@/interfaces/Item';
+import api from '@/lib/ApiStories';
 
 export default defineComponent({
   name: 'Home',
@@ -74,13 +74,79 @@ export default defineComponent({
   },
 
   setup: () => {
-    const {
-      story, count, loading, getStory,
-    } = getComments();
+    const story = ref<Item>();
+    const comments = ref<Item[]>([]);
+    const count = ref(0);
+    const loading = ref(false);
 
     const { timeString, setTimeString } = TimeString();
     const id = ref();
     id.value = useRoute().params.id;
+
+    const getStory = async () => {
+      if (!id.value) return;
+
+      loading.value = true;
+      story.value = await api.getOne(id.value);
+      loading.value = false;
+    };
+
+    const getComments = async (ids: number[], parent: Item) => {
+      if (ids.length === 0 || !parent) return;
+      parent.resolvedKids = ref([]).value;
+
+      ids.forEach((commentId, index) => {
+        api.getOne(commentId).then(
+          comment => {
+            if (!comment || !parent.resolvedKids) return;
+            parent.resolvedKids[index] = comment;
+
+            if (comment.kids && comment.kids.length > 0) {
+              getComments(comment.kids, comment);
+            }
+          },
+        );
+      });
+    };
+
+    const getParentComments = async () => {
+      if (!story.value || story.value.descendants === 0) return;
+      loading.value = true;
+
+      for (let i = count.value; i < count.value + 10; i++) {
+        const actualCount = count.value + 10;
+        if (count.value >= story.value.descendants) break;
+
+        api.getOne(story.value.kids[i]).then(
+          comment => {
+            if (!story.value || !comment) return;
+            comments.value[i] = comment;
+
+            if (comment.kids && comment.kids.length > 0) {
+              getComments(comment.kids, comment);
+            }
+
+            if (actualCount === count.value) {
+              loading.value = false;
+            }
+          },
+
+          error => console.error(error),
+        );
+      }
+
+      count.value += 10;
+    };
+
+    const infiniteScroll = () => {
+      const main = document.getElementById('main');
+      if (!main || !story.value) return;
+
+      const espacioVisto = main.scrollTop + window.innerHeight;
+      if (espacioVisto >= main.scrollHeight && !loading.value && count.value < story.value.descendants) {
+        getParentComments();
+      }
+    };
 
     const domain = computed(() => {
       if (!story.value) return '';
@@ -90,22 +156,29 @@ export default defineComponent({
       return url.hostname;
     });
 
+    OnScroll(infiniteScroll);
+
     onMounted(async () => {
-      await getStory(id.value);
+      await getStory();
 
       if (story.value) {
         setTimeString(story.value.time);
+        getParentComments();
       }
     });
 
     return {
       story,
+      comments,
       count,
-      domain,
+      loading,
       getStory,
+      getParentComments,
+      getComments,
+      infiniteScroll,
+      domain,
       timeString,
       setTimeString,
-      loading,
     };
   },
 });
