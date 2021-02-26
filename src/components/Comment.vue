@@ -18,13 +18,14 @@
       </span>
       <div v-html="text" />
     </div>
-
-    <comment
-      v-for="(kid, index) of resolvedKids"
-      :key="index"
-      v-bind="kid"
-      :level="level + 1"
-    />
+    <transition-group tag="div" name="hn-story">
+      <comment
+        v-for="(kid, index) of resolvedKids"
+        :key="index"
+        v-bind="kid"
+        :level="level + 1"
+      />
+    </transition-group>
   </div>
 </template>
 
