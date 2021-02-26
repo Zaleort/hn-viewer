@@ -2,15 +2,6 @@
 @import 'variables';
 @import 'utility';
 @import 'animations';
-@import 'container';
-@import 'icon';
-@import 'loading';
-@import 'mainContainer';
-@import 'menu';
-@import 'scrollbar';
-@import 'section';
-@import 'story';
-@import 'topbar';
 
 html {
     scroll-behavior: smooth;
@@ -23,3 +14,31 @@ body {
     -webkit-font-smoothing: antialiased;
     background-color: $background-color;
 }
+
+a {
+    text-decoration: none;
+    color: $primary;
+    transition: all 90ms ease;
+}
+
+p {
+    margin: 12px 0;
+  }
+
+pre {
+    font-size: 0.9em;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+@import 'comment';
+@import 'container';
+@import 'icon';
+@import 'loading';
+@import 'mainContainer';
+@import 'menu';
+@import 'scrollbar';
+@import 'section';
+@import 'story';
+@import 'topbar';

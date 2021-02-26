@@ -1,0 +1,37 @@
+@include block(comment) {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+
+  @include tablet {
+    margin-left: 9px;
+  }
+
+  @include when(level-1) {
+    margin-left: 0;
+  }
+
+  @include element(content) {
+    padding: 5px 16px;
+    margin: 5px 0;
+    border: 1px solid $grey100;
+    border-left: 5px solid $primary;
+    border-radius: $border-radius;
+    background-color: $background-color50;
+    word-wrap: break-word;
+
+    @include modifier(level-1) { border-left-color: $primary; }
+    @include modifier(level-2) { border-left-color: $red500; }
+    @include modifier(level-3) { border-left-color: $green500; }
+    @include modifier(level-4) { border-left-color: $teal500; }
+    @include modifier(level-5) { border-left-color: $blue500; }
+    @include modifier(level-6) { border-left-color: $indigo500; }
+  }
+
+  @include element(by) {
+    display: block;
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: $text-secondary-color;
+  }
+}
