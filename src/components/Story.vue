@@ -1,7 +1,7 @@
 <template>
   <div class="hn-story-card">
     <div class="hn-story-card__ribbon">
-      <span>{{ index + 1 }}</span>
+      <span class="hn-story-card__index">{{ index + 1 }}</span>
       <span class="hn-story-card__score">{{ score }}p</span>
     </div>
 
@@ -27,25 +27,27 @@
       </div>
 
       <footer class="hn-story-card__footer">
-        <span class="mr-4">
-          <icon icon="user" size="small" />
+        <router-link
+          :to="{ name: 'User', params: { id: by } }"
+          class="hn-story-card__icon-group is-clickable"
+        >
+          <icon icon="user" class="mr-1" />
           {{ by }}
-        </span>
-        <span class="mr-4">
-          <icon icon="clock" size="small" />
+        </router-link>
+        <span class="hn-story-card__icon-group">
+          <icon icon="clock" class="mr-1" />
           {{ timeString }}
         </span>
         <router-link
           v-if="hasDescendants"
           :to="{ name: 'Story', params: { id: id }}"
           :class="{
-            'hn-story-card__comments': true,
-            'is-commented': hasDescendants,
+            'hn-story-card__icon-group': true,
+            'is-clickable': hasDescendants,
           }"
         >
           <icon
             icon="comment"
-            color="primary"
             class="mr-1"
           />
           {{ descendants }}
@@ -60,7 +62,7 @@ import {
   computed, defineComponent, watchEffect,
 } from 'vue';
 import Icon from '@/components/Icon.vue';
-import TimeString from '@/composables/timeString';
+import TimeString from '@/composables/TimeString';
 
 export default defineComponent({
   name: 'Story',

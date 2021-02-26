@@ -2,11 +2,15 @@
   max-width: $desktop-l;
   margin: 0 auto;
   background-color: white;
-  padding: 16px;
+  padding: 9px;
   border-radius: $border-radius;
   box-shadow: $low-shadow;
   font-size: 18px;
   line-height: 1.5;
+
+  @include tablet {
+    padding: 16px;
+  }
 
   @include element(heading) {
     display: block;
@@ -60,23 +64,28 @@
 
 @include block(story-card) {
   max-width: $desktop-l;
-  margin: 0 auto 5px auto;
+  margin: 0 auto 3px auto;
   display: flex;
   background-color: $grey50;
   box-shadow: $low-shadow;
-  border-radius: $border-radius;
   overflow: hidden;
 
+  @include tablet {
+    border-radius: $border-radius;
+  }
+
   @include element(ribbon) {
-    min-width: 65px;
+    min-width: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 12px;
     color: $grey50;
     background-color: $primary;
-    margin-right: 9px;
+  }
+
+  @include element(index) {
+    font-size: 1.15em;
   }
 
   @include element(score) {
@@ -114,12 +123,13 @@
 
   @include element(content) {
     flex-grow: 1;
-    padding: 9px;
+    padding: 12px;
   }
 
   @include element(footer) {
     display: flex;
     flex-wrap: wrap;
+    font-size: 0.9em;
     margin-top: 12px;
     color: $grey700;
   }
@@ -128,14 +138,20 @@
     margin-right: 12px;
   }
 
-  @include element(comments) {
+  @include element(icon-group) {
     display: flex;
     align-items: center;
     transition: all 50ms ease;
     color: $grey800;
     text-decoration: none;
+    margin-right: 12px;
+    margin-top: 3px;
 
-    @include when(commented) {
+    @include mobile-l {
+      margin-top: 0;
+    }
+
+    @include when(clickable) {
       cursor: pointer;
       &:hover {
         color: $primary;
