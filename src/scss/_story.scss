@@ -38,6 +38,7 @@
     flex-wrap: wrap;
     font-size: 0.9em;
     color: $text-secondary-color;
+    margin-bottom: 12px;
   }
 
   @include element(user) {
@@ -54,7 +55,7 @@
   }
 
   @include element(comments-heading) {
-    margin: 0;
+    margin: 7px 0;
     font-size: 1.15em;
     text-decoration: none;
     color: $text-color;
