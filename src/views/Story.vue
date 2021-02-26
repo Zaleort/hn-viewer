@@ -119,9 +119,12 @@ export default defineComponent({
 
         api.getOne(story.value.kids[i]).then(
           comment => {
-            if (!story.value || !comment) return;
-            comments.value[i] = comment;
+            if (!story.value || !comment) {
+              loading.value = false;
+              return;
+            }
 
+            comments.value[i] = comment;
             if (comment.kids && comment.kids.length > 0) {
               getComments(comment.kids, comment);
             }
