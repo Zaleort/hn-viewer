@@ -48,6 +48,11 @@
     transform: rotateY(180deg);
   }
 
+  @include modifier(upside) {
+    transition-timing-function: ease-in;
+    transform: rotateX(180deg);
+  }
+
   @for $i from 2 through 5 {
     @include modifier('x' + $i) {
       width: $i * 1em;

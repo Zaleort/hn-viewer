@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!deleted"
+    v-show="!deleted"
     :class="{
       'hn-comment': true,
       'is-level-1': level === 1,
@@ -17,10 +17,26 @@
         - {{ timeString }}
       </span>
       <div v-html="text" />
+
+      <div
+        v-if="kids.length"
+        class="hn-comment__show-comments"
+        @click="toggleKids = !toggleKids"
+      >
+        <icon
+          icon="chevronDown"
+          :class="{
+            'mr-1': true,
+            'hn-icon--upside': !toggleKids
+          }"
+        />
+        {{ kids.length }} {{ kids.length === 1 ? 'comment' : 'comments' }}
+      </div>
     </div>
     <transition-group tag="div" name="hn-story">
       <comment
         v-for="(kid, index) of resolvedKids"
+        v-show="toggleKids"
         :key="index"
         v-bind="kid"
         :level="level + 1"
@@ -30,11 +46,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect } from 'vue';
+import { defineComponent, ref, watchEffect } from 'vue';
+import Icon from '@/components/Icon.vue';
 import TimeString from '@/composables/TimeString';
 
 export default defineComponent({
   name: 'Comment',
+  components: {
+    Icon,
+  },
+
   props: {
     level: {
       type: Number,
@@ -94,6 +115,7 @@ export default defineComponent({
 
   setup(props) {
     const { timeString, setTimeString } = TimeString();
+    const toggleKids = ref(true);
 
     watchEffect(() => {
       setTimeString(props.time);
@@ -102,6 +124,7 @@ export default defineComponent({
     return {
       timeString,
       setTimeString,
+      toggleKids,
     };
   },
 });
