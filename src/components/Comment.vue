@@ -33,15 +33,13 @@
         {{ kids.length }} {{ kids.length === 1 ? 'comment' : 'comments' }}
       </div>
     </div>
-    <transition-group tag="div" name="hn-story">
-      <comment
-        v-for="(kid, index) of resolvedKids"
-        v-show="toggleKids"
-        :key="index"
-        v-bind="kid"
-        :level="level + 1"
-      />
-    </transition-group>
+    <comment
+      v-for="(kid, index) of resolvedKids"
+      v-show="toggleKids"
+      :key="index"
+      v-bind="kid"
+      :level="level + 1"
+    />
   </div>
 </template>
 

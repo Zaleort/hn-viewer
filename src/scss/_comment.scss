@@ -26,6 +26,9 @@
     @include modifier(level-4) { border-left-color: $teal500; }
     @include modifier(level-5) { border-left-color: $blue500; }
     @include modifier(level-6) { border-left-color: $indigo500; }
+    @include modifier(level-7) { border-left-color: $purple500; }
+    @include modifier(level-8) { border-left-color: $pink500; }
+    @include modifier(level-9) { border-left-color: $brown500; }
   }
 
   @include element(by) {
@@ -39,15 +42,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 7px 0;
     cursor: pointer;
     transition: 50ms all ease;
 
     &:hover {
       color: $primary;
-    }
-
-    @include when(collapsed) {
-      
     }
   }
 }
