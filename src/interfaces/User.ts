@@ -3,5 +3,5 @@ export default interface User {
   created: number;
   karma: number;
   about: string;
-  submited: number[]; 
+  submitted: number[]; 
 }
