@@ -133,7 +133,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { timeString, setTimeString } = TimeString();
+    const { timeString, getTime } = TimeString();
     const domain = computed(() => {
       if (!props.url) return 'news.ycombinator.com';
 
@@ -144,14 +144,14 @@ export default defineComponent({
     const hasDescendants = computed(() => props.descendants > 0);
 
     watchEffect(() => {
-      setTimeString(props.time);
+      getTime(props.time);
     });
 
     return {
       hasDescendants,
       domain,
       timeString,
-      setTimeString,
+      getTime,
     };
   },
 });

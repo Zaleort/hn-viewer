@@ -79,7 +79,7 @@ export default defineComponent({
     const count = ref(0);
     const loading = ref(false);
 
-    const { timeString, setTimeString } = TimeString();
+    const { timeString, getTime } = TimeString();
     const id = ref();
     id.value = useRoute().params.id;
 
@@ -165,7 +165,7 @@ export default defineComponent({
       await getStory();
 
       if (story.value) {
-        setTimeString(story.value.time);
+        getTime(story.value.time);
         getParentComments();
       }
     });
@@ -181,7 +181,7 @@ export default defineComponent({
       infiniteScroll,
       domain,
       timeString,
-      setTimeString,
+      getTime,
     };
   },
 });

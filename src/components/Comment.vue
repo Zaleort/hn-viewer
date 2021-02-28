@@ -112,16 +112,16 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { timeString, setTimeString } = TimeString();
+    const { timeString, getTime } = TimeString();
     const toggleKids = ref(true);
 
     watchEffect(() => {
-      setTimeString(props.time);
+      getTime(props.time);
     });
 
     return {
       timeString,
-      setTimeString,
+      getTime,
       toggleKids,
     };
   },
