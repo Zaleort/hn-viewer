@@ -1,0 +1,7 @@
+@include block(user) {
+  @extend .hn-story;
+
+  @include element(name) {
+    @extend .hn-story__heading;
+  }
+}
