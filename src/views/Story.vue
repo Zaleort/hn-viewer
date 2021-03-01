@@ -17,7 +17,7 @@
         {{ story.title }}
       </h1>
       <div class="hn-story__subheading">
-        <span class="mr-4">
+        <span v-if="story.score >= 0" class="mr-4">
           <icon icon="chevronUp" size="small" />
           {{ story.score }}
         </span>
@@ -33,6 +33,9 @@
           <icon icon="link" size="small" />
           {{ domain }}
         </span>
+        <router-link v-if="story.parent" :to="{ name: 'Story', params: { id: story.parent }}">
+          Parent
+        </router-link>
       </div>
     </div>
     <div v-html="story.text" />
@@ -54,14 +57,14 @@
 
 <script lang="ts">
 import {
-  computed, defineComponent, onMounted, ref,
+  computed, defineComponent, onMounted, ref, watch,
 } from 'vue';
 import Icon from '@/components/Icon.vue';
 import Loading from '@/components/Loading.vue';
 import OnScroll from '@/composables/OnScroll';
 import Comment from '@/components/Comment.vue';
 import TimeString from '@/composables/TimeString';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import Item from '@/interfaces/Item';
 import api from '@/lib/ApiStories';
 
@@ -81,7 +84,7 @@ export default defineComponent({
 
     const { timeString, getTime } = TimeString();
     const id = ref();
-    id.value = useRoute().params.id;
+    const route = useRoute();
 
     const getStory = async () => {
       if (!id.value) return;
@@ -111,6 +114,8 @@ export default defineComponent({
 
     const getParentComments = async () => {
       if (!story.value || story.value.descendants === 0) return;
+      comments.value = [];
+      count.value = 0;
       loading.value = true;
 
       for (let i = count.value; i < count.value + 10; i++) {
@@ -151,6 +156,16 @@ export default defineComponent({
       }
     };
 
+    const load = async () => {
+      id.value = route.params.id;
+      await getStory();
+
+      if (story.value) {
+        getTime(story.value.time);
+        getParentComments();
+      }
+    };
+
     const domain = computed(() => {
       if (!story.value) return '';
       if (!story.value.url) return 'news.ycombinator.com';
@@ -161,13 +176,12 @@ export default defineComponent({
 
     OnScroll(infiniteScroll);
 
-    onMounted(async () => {
-      await getStory();
+    onMounted(() => {
+      load();
+    });
 
-      if (story.value) {
-        getTime(story.value.time);
-        getParentComments();
-      }
+    watch(() => route.params, async () => {
+      load();
     });
 
     return {
