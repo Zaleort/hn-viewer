@@ -38,7 +38,7 @@
     <div v-html="story.text" />
 
     <h1 class="hn-story__comments-heading">
-      Comments ({{ story.descendants }})
+      Comments ({{ story.descendants ? story.descendants : story.kids.length }})
     </h1>
 
     <transition-group tag="div" name="hn-story">
