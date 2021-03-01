@@ -119,8 +119,6 @@ export default defineComponent({
 
     const getParentComments = async () => {
       if (!story.value || story.value.descendants === 0) return;
-      comments.value = [];
-      count.value = 0;
       loading.value = true;
 
       for (let i = count.value; i < count.value + 10; i++) {
@@ -186,6 +184,8 @@ export default defineComponent({
     });
 
     watch(() => route.params, async () => {
+      comments.value = [];
+      count.value = 0;
       load();
     });
 
