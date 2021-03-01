@@ -59,6 +59,14 @@
         {{ timeString }}
       </span>
       <router-link
+        v-if="parent"
+        :to="{ name: 'Story', params: { id: parent }}"
+        class="hn-story-card__icon-group is-clickable"
+      >
+        <icon icon="sitemap" class="mr-1" />
+        Parent
+      </router-link>
+      <router-link
         v-if="hasDescendants"
         :to="{ name: 'Story', params: { id: id }}"
         :class="{
@@ -139,6 +147,11 @@ export default defineComponent({
     },
 
     descendants: {
+      type: Number,
+      default: null,
+    },
+
+    parent: {
       type: Number,
       default: null,
     },

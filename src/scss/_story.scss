@@ -50,6 +50,13 @@
     }
   }
 
+  @include element(link) {
+    color: $text-secondary-color;
+    &:hover {
+      color: $primary;
+    }
+  }
+
   @include element(comment) {
 
   }
