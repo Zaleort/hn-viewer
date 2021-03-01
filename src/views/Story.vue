@@ -160,7 +160,7 @@ export default defineComponent({
 
     const infiniteScroll = () => {
       const main = document.getElementById('main');
-      if (!main || !story.value) return;
+      if (!main || !story.value || !story.value.descendants) return;
 
       const espacioVisto = main.scrollTop + window.innerHeight;
       if (espacioVisto >= main.scrollHeight && !loading.value && count.value < story.value.descendants) {
