@@ -21,10 +21,10 @@
           <icon icon="chevronUp" size="small" />
           {{ story.score }}
         </span>
-        <span class="mr-4">
+        <router-link :to="{ name: 'User', params: { id: story.by }}" class="hn-story__link mr-4">
           <icon icon="user" size="small" />
           {{ story.by }}
-        </span>
+        </router-link>
         <span class="mr-4">
           <icon icon="clock" size="small" />
           {{ timeString }}
@@ -33,7 +33,12 @@
           <icon icon="link" size="small" />
           {{ domain }}
         </span>
-        <router-link v-if="story.parent" :to="{ name: 'Story', params: { id: story.parent }}">
+        <router-link
+          v-if="story.parent"
+          :to="{ name: 'Story', params: { id: story.parent }}"
+          class="hn-story__link"
+        >
+          <icon icon="sitemap" size="small" />
           Parent
         </router-link>
       </div>
