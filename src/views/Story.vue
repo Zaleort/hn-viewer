@@ -46,7 +46,7 @@
     <div v-html="story.text" />
 
     <h1 class="hn-story__comments-heading">
-      Comments ({{ story.descendants ? story.descendants : story.kids.length }})
+      Comments ({{ descendants }})
     </h1>
 
     <transition-group tag="div" name="hn-story">
@@ -69,7 +69,7 @@ import Loading from '@/components/Loading.vue';
 import OnScroll from '@/composables/OnScroll';
 import Comment from '@/components/Comment.vue';
 import TimeString from '@/composables/TimeString';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import Item from '@/interfaces/Item';
 import api from '@/lib/ApiStories';
 
@@ -90,6 +90,12 @@ export default defineComponent({
     const { timeString, getTime } = TimeString();
     const id = ref();
     const route = useRoute();
+
+    const descendants = computed(() => {
+      if (!story.value || !story.value.kids) return 0;
+
+      return story.value.descendants || story.value.kids.length;
+    });
 
     const getStory = async () => {
       if (!id.value) return;
@@ -118,12 +124,15 @@ export default defineComponent({
     };
 
     const getParentComments = async () => {
-      if (!story.value || story.value.descendants === 0) return;
+      if (!story.value || !story.value.kids) return;
       loading.value = true;
 
       for (let i = count.value; i < count.value + 10; i++) {
         const actualCount = count.value + 10;
-        if (count.value >= story.value.descendants) break;
+        if (count.value >= story.value.kids.length) {
+          loading.value = false;
+          break;
+        }
 
         api.getOne(story.value.kids[i]).then(
           comment => {
@@ -192,6 +201,7 @@ export default defineComponent({
     return {
       story,
       comments,
+      descendants,
       count,
       loading,
       getStory,
