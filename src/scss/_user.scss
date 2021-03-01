@@ -4,4 +4,21 @@
   @include element(name) {
     @extend .hn-story__heading;
   }
+
+  @include element(comment) {
+    padding: 5px 16px;
+    margin: 6px 0;
+    border: 1px solid $grey100;
+    border-left: 5px solid $primary;
+    border-radius: $border-radius;
+    background-color: $background-color50;
+    word-wrap: break-word;
+  }
+
+  @include element(story) {
+    @extend .hn-user__comment;
+    padding: 0 3px;
+    display: flex;
+    overflow: hidden;
+  }
 }
